@@ -35,3 +35,4 @@ errly-*.tar
 npm-debug.log
 /assets/node_modules/
 var/
+.cursor
