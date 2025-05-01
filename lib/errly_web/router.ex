@@ -7,10 +7,14 @@ defmodule ErrlyWeb.Router do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_live_flash
-    plug :put_root_layout, html: {ErrlyWeb.Layouts, :root}
+    # plug :put_root_layout, html: {ErrlyWeb.Layouts, :app}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug :fetch_current_scope_for_user
+  end
+
+  pipeline :app do
+    plug :put_root_layout, html: {ErrlyWeb.Layouts, :app}
   end
 
   pipeline :api do
@@ -54,13 +58,15 @@ defmodule ErrlyWeb.Router do
       on_mount: [{ErrlyWeb.UserAuth, :require_authenticated}] do
       live "/users/settings", UserLive.Settings, :edit
       live "/users/settings/confirm-email/:token", UserLive.Settings, :confirm_email
+
+      live "/s/:space_slug/issues", DashboardLive.IssuesLive, :index
     end
 
     post "/users/update-password", UserSessionController, :update_password
   end
 
   scope "/", ErrlyWeb do
-    pipe_through [:browser]
+    pipe_through [:browser, :app]
 
     live_session :current_user,
       on_mount: [{ErrlyWeb.UserAuth, :mount_current_scope}] do

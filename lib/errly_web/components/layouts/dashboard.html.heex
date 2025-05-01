@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="corporate">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="csrf-token" content={get_csrf_token()} />
+    <.live_title default="Errly" suffix=" · Phoenix Framework">
+      {assigns[:page_title]}
+    </.live_title>
+    <link phx-track-static rel="stylesheet" href={~p"/assets/css/app.css"} />
+    <script defer phx-track-static type="text/javascript" src={~p"/assets/js/app.js"}>
+    </script>
+    <style>
+      :root {
+        --color-primary: #3b82f6 !important;
+        --p: 221 83% 53% !important;
+        --pf: 221 83% 45% !important;
+        --pc: 0 0% 100% !important;
+      }
+    </style>
+    <script>
+      (() => {
+        const setTheme = (theme) => {
+          if (theme === "system") {
+            localStorage.removeItem("phx:theme");
+            document.documentElement.removeAttribute("data-theme");
+            document.documentElement.setAttribute("data-theme", "corporate");
+          } else {
+            localStorage.setItem("phx:theme", theme);
+            document.documentElement.setAttribute("data-theme", theme);
+          }
+        };
+        setTheme(localStorage.getItem("phx:theme") || "corporate");
+        window.addEventListener("storage", (e) => e.key === "phx:theme" && setTheme(e.newValue || "corporate"));
+        window.addEventListener("phx:set-theme", ({ detail: { theme } }) => setTheme(theme));
+      })();
+    </script>
+  </head>
+  <body class="min-h-screen bg-base-200">
+    <div class="drawer lg:drawer-open">
+      <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
+      <div class="drawer-content flex flex-col items-center justify-center">
+        <!-- Navbar -->
+        <div class="navbar bg-base-100 w-full">
+          <div class="flex-none lg:hidden">
+            <label for="my-drawer-2" aria-label="open sidebar" class="btn btn-square btn-ghost">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                class="inline-block h-6 w-6 stroke-current"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                >
+                </path>
+              </svg>
+            </label>
+          </div>
+          <div class="flex-1 px-2 mx-2 font-bold">
+            <label class="input">
+              <svg
+                class="h-[1em] opacity-50"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+              >
+                <g
+                  stroke-linejoin="round"
+                  stroke-linecap="round"
+                  stroke-width="2.5"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <path d="m21 21-4.3-4.3"></path>
+                </g>
+              </svg>
+              <input type="search" class="grow" placeholder="Search" />
+              <kbd class="kbd kbd-sm">⌘</kbd>
+              <kbd class="kbd kbd-sm">K</kbd>
+            </label>
+          </div>
+          <div class="flex-none">
+            <!-- Navbar menu content here -->
+            <div class="dropdown dropdown-end">
+              <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+                <div class="w-10 rounded-full">
+                  <img
+                    alt="User avatar"
+                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                  />
+                </div>
+              </div>
+              <ul
+                tabindex="0"
+                class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+              >
+                <li><a>Profile</a></li>
+                <li><a>Settings</a></li>
+                <li><a>Logout</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- Page content here -->
+        <main class="flex-1 p-6 w-full border border-base-300 rounded-md">
+          {@inner_content}
+        </main>
+      </div>
+      <div class="drawer-side border-base-300">
+        <label for="my-drawer-2" aria-label="close sidebar" class="drawer-overlay"></label>
+        <ul class="menu bg-base-100 text-base-content min-h-full w-60 p-4">
+          <!-- Sidebar content here -->
+          <li>
+            <a href={~p"/"} class="text-xl font-bold px-2 mx-2">Errly</a>
+          </li>
+          <li class="menu-title"><span>Menu</span></li>
+          <li><a>Issues</a></li>
+          <li><a>Projects</a></li>
+          <li>
+            <a>Settings</a>
+            <ul>
+              <li><a>Submenu 1</a></li>
+              <li><a>Submenu 2</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>
