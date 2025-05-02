@@ -22,7 +22,7 @@ defmodule ErrlyWeb.Router do
   end
 
   scope "/", ErrlyWeb do
-    pipe_through :browser
+    pipe_through [:browser, :app]
 
     get "/", PageController, :home
   end
