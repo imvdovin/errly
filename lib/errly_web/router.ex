@@ -66,7 +66,7 @@ defmodule ErrlyWeb.Router do
   end
 
   scope "/", ErrlyWeb do
-    pipe_through [:browser, :app]
+    pipe_through [:browser]
 
     live_session :current_user,
       on_mount: [{ErrlyWeb.UserAuth, :mount_current_scope}] do

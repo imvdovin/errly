@@ -10,6 +10,14 @@
     <link phx-track-static rel="stylesheet" href={~p"/assets/css/app.css"} />
     <script defer phx-track-static type="text/javascript" src={~p"/assets/js/app.js"}>
     </script>
+    <style>
+      :root {
+        --color-primary: #3b82f6 !important;
+        --p: 221 83% 53% !important;
+        --pf: 221 83% 45% !important;
+        --pc: 0 0% 100% !important;
+      }
+    </style>
     <script>
       (() => {
         const setTheme = (theme) => {
@@ -80,7 +88,15 @@
         </ul>
       </div>
       <div class="navbar-end">
-        <a class="btn">{@current_scope.user.email}</a>
+        <%= if @current_scope && @current_scope.user do %>
+          <div class="flex items-center">
+            <span class="mr-4"><%= @current_scope.user.email %></span>
+            <.link href={~p"/users/log-out"} method="delete" class="btn btn-ghost">Logout</.link>
+          </div>
+        <% else %>
+          <.link href={~p"/users/log-in"} class="btn btn-primary mr-2">Login</.link>
+          <.link href={~p"/users/register"} class="btn btn-secondary">Register</.link>
+        <% end %>
       </div>
     </div>
     {@inner_content}

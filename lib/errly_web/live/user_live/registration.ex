@@ -6,35 +6,35 @@ defmodule ErrlyWeb.UserLive.Registration do
 
   def render(assigns) do
     ~H"""
-    <Layouts.app flash={@flash} current_scope={@current_scope}>
-      <div class="mx-auto max-w-sm">
-        <.header class="text-center">
-          Register for an account
-          <:subtitle>
-            Already registered?
-            <.link navigate={~p"/users/log-in"} class="font-semibold text-brand hover:underline">
-              Log in
-            </.link>
-            to your account now.
-          </:subtitle>
-        </.header>
+    <%!-- <Layouts.app flash={@flash} current_scope={@current_scope}> --%>
+    <div class="mx-auto max-w-sm pt-8">
+      <.header class="text-center">
+        Register for an account
+        <:subtitle>
+          Already registered?
+          <.link navigate={~p"/users/log-in"} class="font-semibold text-brand hover:underline">
+            Log in
+          </.link>
+          to your account now.
+        </:subtitle>
+      </.header>
 
-        <.form for={@form} id="registration_form" phx-submit="save" phx-change="validate">
-          <.input
-            field={@form[:email]}
-            type="email"
-            label="Email"
-            autocomplete="username"
-            required
-            phx-mounted={JS.focus()}
-          />
+      <.form for={@form} id="registration_form" phx-submit="save" phx-change="validate">
+        <.input
+          field={@form[:email]}
+          type="email"
+          label="Email"
+          autocomplete="username"
+          required
+          phx-mounted={JS.focus()}
+        />
 
-          <.button variant="primary" phx-disable-with="Creating account..." class="w-full">
-            Create an account
-          </.button>
-        </.form>
-      </div>
-    </Layouts.app>
+        <.button variant="primary" phx-disable-with="Creating account..." class="w-full">
+          Create an account
+        </.button>
+      </.form>
+    </div>
+    <%!-- </Layouts.app> --%>
     """
   end
 
